@@ -268,7 +268,7 @@ if __name__ == '__main__':
         DEBUG = False
     rootpath = os.path.dirname(__file__)
     print("rootpath: " + rootpath)
-    rootpath = "/content/datasets"
+    rootpath = "/content"
     print("hard code rootpath: " + rootpath)    
     history, abbreviation = read_stock_history(filepath=  rootpath + '/datasets/stocks_history_target.h5')
     history = history[:, :, :4]
