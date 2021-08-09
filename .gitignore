@@ -2,7 +2,7 @@ results/
 weights/
 *.npz
 *.csv
-*.h5
+#*.h5
 .idea/
 *.pptx
 papers/
