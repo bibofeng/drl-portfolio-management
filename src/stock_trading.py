@@ -266,8 +266,10 @@ if __name__ == '__main__':
         DEBUG = True
     else:
         DEBUG = False
+    rootpath = os.path.dirname(__file__)
+    print("rootpath: " + rootpath)
 
-    history, abbreviation = read_stock_history(filepath= args["rootpath"] + '/datasets/stocks_history_target.h5')
+    history, abbreviation = read_stock_history(filepath=  rootpath + '/datasets/stocks_history_target.h5')
     history = history[:, :, :4]
     target_stocks = abbreviation
     num_training_time = 1095

@@ -25,7 +25,7 @@ setup(
     license="unlicense",
     package_dir={"": "src"},  # package directory,
     packages=find_packages(where="src"),
-    package_data={'': ['../stock_trading.py']}, ## include non py files
+    package_data={'': ['datasets/stocks_history_target_2.h5','datasets/stocks_history_target.h5']}, ## include non py files
     include_package_data=True,
     install_requires=REQUIRES
     + ["pyfolio @ git+https://github.com/bibofeng/pyfolio.git"],
