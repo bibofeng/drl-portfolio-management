@@ -10,9 +10,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 import gym
-import gym.spaces
+import gym.spaces 
 
-from utils.data import date_to_index, index_to_date
+from utils.data import date_to_index 
+from utils.data import index_to_date 
+
+#date_to_index, index_to_date
 
 eps = 1e-8
 

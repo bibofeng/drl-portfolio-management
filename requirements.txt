@@ -1,0 +1,6 @@
+#python==3.7.10
+tensorflow==1.15.5
+tflearn
+pandas 
+matplotlib
+gym

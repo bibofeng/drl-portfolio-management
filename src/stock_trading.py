@@ -3,15 +3,17 @@ Use DDPG to train a stock trader based on a window of history price
 """
 
 from __future__ import print_function, division
+ 
 
 from model.ddpg.actor import ActorNetwork
 from model.ddpg.critic import CriticNetwork
 from model.ddpg.ddpg import DDPG
 from model.ddpg.ornstein_uhlenbeck import OrnsteinUhlenbeckActionNoise
 
-from environment.portfolio import PortfolioEnv
-from utils.data import read_stock_history, normalize
 
+from utils.data import read_stock_history, normalize
+from environment.portfolio import PortfolioEnv
+import os
 import numpy as np
 import tflearn
 import tensorflow as tf
@@ -243,13 +245,18 @@ def test_model_multiple(env, models):
 
 
 if __name__ == '__main__':
+    '''
+        setup to run in port_env virtual environment
 
+    '''
     parser = argparse.ArgumentParser(description='Provide arguments for training different DDPG models')
 
     parser.add_argument('--debug', '-d', help='print debug statement', default=False)
     parser.add_argument('--predictor_type', '-p', help='cnn or lstm predictor', required=True)
     parser.add_argument('--window_length', '-w', help='observation window length', required=True)
     parser.add_argument('--batch_norm', '-b', help='whether to use batch normalization', required=True)
+
+    parser.add_argument('--rootpath', '-r', help='root path for main script', default=os.path.dirname(__file__))
 
     args = vars(parser.parse_args())
 
@@ -260,7 +267,7 @@ if __name__ == '__main__':
     else:
         DEBUG = False
 
-    history, abbreviation = read_stock_history(filepath='utils/datasets/stocks_history_target.h5')
+    history, abbreviation = read_stock_history(filepath= args["rootpath"] + '/datasets/stocks_history_target.h5')
     history = history[:, :, :4]
     target_stocks = abbreviation
     num_training_time = 1095
@@ -294,6 +301,10 @@ if __name__ == '__main__':
 
     variable_scope = get_variable_scope(window_length, predictor_type, use_batch_norm)
 
+    config_file=os.path.join(args["rootpath"], 'config/stock.json')
+    model_save_path=os.path.join(args["rootpath"],model_save_path)
+    summary_path=os.path.join(args["rootpath"],summary_path)
+
     with tf.variable_scope(variable_scope):
         sess = tf.Session()
         actor = StockActor(sess, state_dim, action_dim, action_bound, 1e-4, tau, batch_size,
@@ -302,7 +313,7 @@ if __name__ == '__main__':
                              learning_rate=1e-3, num_actor_vars=actor.get_num_trainable_vars(),
                              predictor_type=predictor_type, use_batch_norm=use_batch_norm)
         ddpg_model = DDPG(env, sess, actor, critic, actor_noise, obs_normalizer=obs_normalizer,
-                          config_file='config/stock.json', model_save_path=model_save_path,
+                          config_file=config_file, model_save_path=model_save_path,
                           summary_path=summary_path)
         ddpg_model.initialize(load_weights=False)
         ddpg_model.train()
