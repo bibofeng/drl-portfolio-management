@@ -36,7 +36,7 @@ def get_result_path(window_length, predictor_type, use_batch_norm):
         batch_norm_str = 'batch_norm'
     else:
         batch_norm_str = 'no_batch_norm'
-    return 'results/stock/{}/window_{}/{}/'.format(predictor_type, window_length, batch_norm_str)
+    return 'results/stock_{}_window_{}_{}_'.format(predictor_type, window_length, batch_norm_str)
 
 
 def get_variable_scope(window_length, predictor_type, use_batch_norm):
