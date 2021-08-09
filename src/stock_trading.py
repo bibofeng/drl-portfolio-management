@@ -270,6 +270,9 @@ if __name__ == '__main__':
     print("rootpath: " + rootpath)
     rootpath = "/content"
     print("hard code rootpath: " + rootpath)    
+
+    lib_path = "/usr/local/lib/python3.7/dist-packages/"
+
     history, abbreviation = read_stock_history(filepath=  rootpath + '/datasets/stocks_history_target.h5')
     history = history[:, :, :4]
     target_stocks = abbreviation
@@ -304,9 +307,9 @@ if __name__ == '__main__':
 
     variable_scope = get_variable_scope(window_length, predictor_type, use_batch_norm)
 
-    config_file=os.path.join(args["rootpath"], 'config/stock.json')
-    model_save_path=os.path.join(args["rootpath"],model_save_path)
-    summary_path=os.path.join(args["rootpath"],summary_path)
+    config_file=os.path.join(lib_path, 'config/stock.json')
+    model_save_path=os.path.join(rootpath,model_save_path)
+    summary_path=os.path.join(rootpath,summary_path)
 
     with tf.variable_scope(variable_scope):
         sess = tf.Session()
