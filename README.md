@@ -1,4 +1,5 @@
 # Deep Reinforcement Learning for Portfolio Management
+* from:[drl-portfolio-management](https://github.com/vermouth1992/drl-portfolio-management)
 * This is done as CSCI 599 deep learning and its applications final project at USC Fall 2017
 * For more information, you can read our [report](http://www-scf.usc.edu/~zhan527/post/cs599/)
 

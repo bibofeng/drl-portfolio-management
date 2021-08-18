@@ -18,7 +18,7 @@
             "program": "${file}",
             "args":[
                 "-d","True",
-                "-p","cnn","-w","30","-b","True"
+                "-p","cnn","-w","5","-b","True"
             ],
             "console": "integratedTerminal"
         }

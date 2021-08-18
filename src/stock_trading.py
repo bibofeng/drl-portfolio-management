@@ -20,9 +20,12 @@ import tensorflow as tf
 import argparse
 import pprint
 
+from constants import LIB_DIR,DATABASE_DIR
+ 
+
 DEBUG = False
 
-
+ 
 def get_model_path(window_length, predictor_type, use_batch_norm):
     if use_batch_norm:
         batch_norm_str = 'batch_norm'
@@ -266,15 +269,18 @@ if __name__ == '__main__':
         DEBUG = True
     else:
         DEBUG = False
+
     rootpath = os.path.dirname(__file__)
     print("rootpath: " + rootpath)
-    rootpath = "/content"
-    print("hard code rootpath: " + rootpath)    
+     
+    
+    lib_path = LIB_DIR
 
-    lib_path = "/usr/local/lib/python3.7/dist-packages/"
 
-    history, abbreviation = read_stock_history(filepath=  rootpath + '/datasets/stocks_history_target.h5')
-    history = history[:, :, :4]
+
+    history, abbreviation = read_stock_history(filepath=  lib_path + '/datasets/stocks_history_target.h5')
+    
+    history = history[:, :, :4]  #remove volumn col? 
     target_stocks = abbreviation
     num_training_time = 1095
     window_length = int(args['window_length'])
@@ -302,6 +308,8 @@ if __name__ == '__main__':
     else:
         raise ValueError('Unknown batch norm argument')
     actor_noise = OrnsteinUhlenbeckActionNoise(mu=np.zeros(action_dim))
+
+    
     model_save_path = get_model_path(window_length, predictor_type, use_batch_norm)
     summary_path = get_result_path(window_length, predictor_type, use_batch_norm)
 

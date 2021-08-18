@@ -11,7 +11,7 @@ import tensorflow as tf
 #   Actor DNNs
 # ===========================
 
-class ActorNetwork(object):
+class   ActorNetwork(object):
     """
     Input to the network is the state, output is the action
     under a deterministic policy.
